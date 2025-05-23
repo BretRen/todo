@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
+import UndoIcon from '@mui/icons-material/Undo';
 
 import "./App.css";
 
@@ -128,7 +129,7 @@ export default function App() {
                   onClick={() => backDelTodo(todo)}
                   title="Restore"
                 >
-                  ↩
+                  <UndoIcon />
                 </button>
               </li>
             ))}
