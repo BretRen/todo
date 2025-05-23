@@ -1,26 +1,21 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+
 export default function App() {
   const [todos, setTodos] = useState([]);
-
   const [filterType, setFilterType] = useState("all"); // all, done, not_done
-
-  const [delTodos, setDelTodos] = useState([]); // 初始空数组
-
+  const [delTodos, setDelTodos] = useState([]);
   const [showDelTodos, setShowDelTodos] = useState(false);
-
   const [didInit, setDidInit] = useState(false);
 
-  // 初始化：只读一次
   useEffect(() => {
     const saved = localStorage.getItem("todos");
     if (saved) {
       setTodos(JSON.parse(saved));
     }
-    setDidInit(true); // 初始化完成
+    setDidInit(true);
   }, []);
 
-  // 只有初始化完成后，才允许写入 localStorage
   useEffect(() => {
     if (didInit) {
       localStorage.setItem("todos", JSON.stringify(todos));
@@ -37,8 +32,8 @@ export default function App() {
 
   const addTodoA = (name) => {
     const newTodo = {
-      name: name,
-      id: todos.length + 1,
+      name,
+      id: Date.now() + Math.floor(Math.random() * 1000),
       done: false,
     };
     setTodos([...todos, newTodo]);
@@ -46,8 +41,8 @@ export default function App() {
 
   const addTodo = (event) => {
     if (event.key === "Enter") {
-      if (!event.target.value) return;
-      addTodoA(event.target.value);
+      if (!event.target.value.trim()) return;
+      addTodoA(event.target.value.trim());
       event.target.value = "";
     }
   };
@@ -62,86 +57,115 @@ export default function App() {
 
   const filteredTodos = todos.filter((todo) => {
     if (filterType === "all") return true;
-    if (filterType === "done") return todo.done === true;
-    if (filterType === "not_done") return todo.done === false;
+    if (filterType === "done") return todo.done;
+    if (filterType === "not_done") return !todo.done;
+    return true;
   });
 
   const backDelTodo = (target) => {
     setDelTodos(delTodos.filter((todo) => todo.id !== target.id));
-    addTodoA(target.name);
+    setTodos((prev) => [...prev, target]);
+  };
+
+  const updateTodo = (e, id) => {
+    const newName = e.target.value;
+    setTodos(
+      todos.map((todo) => (todo.id === id ? { ...todo, name: newName } : todo))
+    );
   };
 
   return (
-    <>
+    <div className="container">
       <h1>Todo List</h1>
-      <button
-        className={filterType == "all" && !showDelTodos ? "here" : null}
-        disabled={showDelTodos ? true : false}
-        onClick={() => setFilterType("all")}
-      >
-        All
-      </button>
-      <button
-        className={filterType == "done" && !showDelTodos ? "here" : null}
-        disabled={showDelTodos ? true : false}
-        onClick={() => setFilterType("done")}
-      >
-        Done
-      </button>
-      <button
-        className={filterType == "not_done" && !showDelTodos ? "here" : null}
-        disabled={showDelTodos ? true : false}
-        onClick={() => setFilterType("not_done")}
-      >
-        Not Done
-      </button>
-      <button
-        className={showDelTodos ? "here" : null}
-        onClick={() => setShowDelTodos(!showDelTodos)}
-      >
-        {!showDelTodos ? "Show Del Todos" : "Close Del Todos"}
-      </button>
-      <br />
-      {/* 如果显示已经删除的任务就提示 */}
+
+      <div className="filter-buttons">
+        <button
+          className={filterType === "all" && !showDelTodos ? "active" : ""}
+          disabled={showDelTodos}
+          onClick={() => setFilterType("all")}
+        >
+          All
+        </button>
+        <button
+          className={filterType === "done" && !showDelTodos ? "active" : ""}
+          disabled={showDelTodos}
+          onClick={() => setFilterType("done")}
+        >
+          Done
+        </button>
+        <button
+          className={filterType === "not_done" && !showDelTodos ? "active" : ""}
+          disabled={showDelTodos}
+          onClick={() => setFilterType("not_done")}
+        >
+          Not Done
+        </button>
+        <button
+          className={showDelTodos ? "active" : ""}
+          onClick={() => setShowDelTodos(!showDelTodos)}
+        >
+          {showDelTodos ? "Close Deleted Todos" : "Show Deleted Todos"}
+        </button>
+      </div>
+
       {showDelTodos ? (
         <>
           <p className="error">
-            Currently in the list of deleted tasks. <br />
-            Click the button again to close. <br />
-            This data will disappear after refreshing the page!
+            Currently showing deleted tasks.
+            <br />
+            Click "Close Deleted Todos" to go back.
+            <br />
+            This list is temporary and will clear on page refresh.
           </p>
-          <ul>
+          <ul className="todo-list deleted-list">
             {delTodos.map((todo) => (
               <li key={todo.id}>
-                {todo.name}
-                <button onClick={() => backDelTodo(todo)}>back</button>
+                <span>{todo.name}</span>
+                <button
+                  className="restore-btn"
+                  onClick={() => backDelTodo(todo)}
+                  title="Restore"
+                >
+                  ↩
+                </button>
               </li>
             ))}
           </ul>
         </>
       ) : (
         <>
-          Add: <input type="text" onKeyDown={addTodo} />
-        </>
-      )}
-
-      <ul>
-        {showDelTodos
-          ? null
-          : filteredTodos.map((todo) => (
-              <li key={todo.id}>
-                <span className={todo.done ? "done" : null}>{todo.name}</span>
+          <div className="add-todo">
+            <input
+              type="text"
+              placeholder="Add a new todo and press Enter"
+              onKeyDown={addTodo}
+            />
+          </div>
+          <ul className="todo-list">
+            {filteredTodos.map((todo) => (
+              <li key={todo.id} className={todo.done ? "done-item" : ""}>
+                <input
+                  className="todo-input"
+                  value={todo.name}
+                  onChange={(e) => updateTodo(e, todo.id)}
+                />
                 <input
                   type="checkbox"
                   checked={todo.done}
                   onChange={() => toggleDone(todo.id)}
                 />
-                <span className="del" onClick={() => delTodo(todo.id)}>
-                  del
-                </span>
+                <button
+                  className="del-btn"
+                  onClick={() => delTodo(todo.id)}
+                  title="Delete"
+                >
+                  ✖
+                </button>
               </li>
             ))}
-      </ul>
-    </>
+          </ul>
+        </>
+      )}
+    </div>
   );
 }
