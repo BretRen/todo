@@ -1,0 +1,14 @@
+
+.done {
+  color: gray;
+}
+.del {
+  color: red;
+}
+.here {
+  background-color: aqua;
+}
+
+.error {
+  color: red;
+}
