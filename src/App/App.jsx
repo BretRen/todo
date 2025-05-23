@@ -58,7 +58,7 @@ export default function App() {
     <div className="container">
       <h1>Todo List</h1>
       {showDelTodos ? (
-        <Tooltip title="You are viewing deleted todos">
+        <Tooltip title="You need to click Close Deleted Todos.">
           <div>
             <FilterButtons
               filterType={filterType}
