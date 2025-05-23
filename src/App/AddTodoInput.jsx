@@ -9,25 +9,30 @@ export default function AddTodoInput({ onAdd }) {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && e.target.value.trim()) {
-      onAdd(e.target.value.trim());
+      onAdd(e.target.value.trim(), dateTime);
       e.target.value = "";
     }
   };
 
   return (
-    <div className="add-todo" style={{ display: "flex", gap: 12, alignItems: "center" }}>
+    <div className="flex items-center gap-3">
       <input
         type="text"
         placeholder="Add a new todo and press Enter"
         onKeyDown={handleKeyDown}
+        className="flex-grow px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
-    <br />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker
           label="Select due date/time"
           value={dateTime}
           onChange={(newValue) => setDateTime(newValue)}
-          renderInput={(params) => <input {...params} style={{ padding: 8, fontSize: 14 }} />}
+          renderInput={(params) => (
+            <input
+              {...params}
+              className="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          )}
         />
       </LocalizationProvider>
     </div>
