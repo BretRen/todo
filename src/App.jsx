@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import "./App.css";
 
 export default function App() {
@@ -159,7 +161,7 @@ export default function App() {
                   onClick={() => delTodo(todo.id)}
                   title="Delete"
                 >
-                  ✖
+                  <DeleteIcon />
                 </button>
               </li>
             ))}
