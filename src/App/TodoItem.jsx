@@ -20,6 +20,7 @@ export default function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
       >
         <DeleteIcon />
       </button>
+      
     </li>
   );
 }
