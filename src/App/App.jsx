@@ -27,8 +27,8 @@ export default function App() {
   const toggleDone = (id) =>
     setTodos(todos.map(todo => todo.id === id ? { ...todo, done: !todo.done } : todo));
 
-  const addTodo = (name, date) =>
-    setTodos([...todos, { name, id: Date.now() + Math.random() * 1000, done: false, date:date}]);
+  const addTodo = (name, date, info) =>
+    setTodos([...todos, { name, id: Date.now() + Math.random() * 1000, done: false, info: info,date:date}]);
 
   const delTodo = (id) => {
     const deleted = todos.find(todo => todo.id === id);

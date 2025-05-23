@@ -20,6 +20,7 @@ export default function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
             Due: {dayjs(todo.date).format("YYYY-MM-DD HH:mm")}
           </span>
         )}
+        <p>{todo.info}</p>
       </div>
       <div className="flex items-center gap-2 ml-2">
         <input

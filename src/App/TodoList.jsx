@@ -11,6 +11,7 @@ export default function TodoList({ todos, onToggle, onDelete, onUpdate }) {
           onDelete={onDelete}
           onUpdate={onUpdate}
           date={todo.date}
+          info={todo.info}
         />
         
       ))}
