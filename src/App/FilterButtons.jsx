@@ -1,6 +1,8 @@
 export default function FilterButtons({ filterType, setFilterType, showDelTodos, setShowDelTodos }) {
   return (
+		
     <div className="filter-buttons">
+      
       <button
         className={filterType === "all" && !showDelTodos ? "active" : ""}
         disabled={showDelTodos}

@@ -3,6 +3,8 @@ import FilterButtons from "./FilterButtons";
 import AddTodoInput from "./AddTodoInput";
 import TodoList from "./TodoList";
 import DeletedList from "./DeletedList";
+import Tooltip from '@mui/material/Tooltip';
+
 import "./App.css";
 
 export default function App() {
@@ -48,20 +50,33 @@ export default function App() {
 
   const filteredTodos = todos.filter(todo =>
     filterType === "all" ? true :
-    filterType === "done" ? todo.done :
-    !todo.done
+      filterType === "done" ? todo.done :
+        !todo.done
   );
 
   return (
     <div className="container">
       <h1>Todo List</h1>
+      {showDelTodos ? (
+        <Tooltip title="You are viewing deleted todos">
+          <div>
+            <FilterButtons
+              filterType={filterType}
+              setFilterType={setFilterType}
+              showDelTodos={showDelTodos}
+              setShowDelTodos={setShowDelTodos}
+            />
+          </div>
+        </Tooltip>
+      ) : (
+        <FilterButtons
+          filterType={filterType}
+          setFilterType={setFilterType}
+          showDelTodos={showDelTodos}
+          setShowDelTodos={setShowDelTodos}
+        />
+      )}
 
-      <FilterButtons
-        filterType={filterType}
-        setFilterType={setFilterType}
-        showDelTodos={showDelTodos}
-        setShowDelTodos={setShowDelTodos}
-      />
 
       {showDelTodos ? (
         <DeletedList delTodos={delTodos} onRestore={backDelTodo} />
