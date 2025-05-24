@@ -7,6 +7,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/changelog" element={<Changelog />} />
+      <Route path="/changelog/:v" element={<Changelog />} />
     </Routes>
   );
 }
