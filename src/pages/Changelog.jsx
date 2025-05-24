@@ -60,6 +60,14 @@ const changelogItems = [
     date: "2025-5-24",
     releaseType: "alpha",
   },
+  {
+    title: "v1.3.6",
+    description: [
+      "Fix UI issues"
+    ],
+    date: "2025-5-24",
+    releaseType: "stable"
+  }
 ];
 
 const typeColor = {
@@ -119,6 +127,7 @@ export default function Changelog() {
       alignItems="center"
       minHeight="100vh"
       bgcolor="#f5f5f5"
+      // sx={{}}
     >
       <Paper
         elevation={3}
@@ -126,6 +135,7 @@ export default function Changelog() {
           p: 4,
           width: "90%",
           maxWidth: 600,
+          m: 10
         }}
       >
         <Box
