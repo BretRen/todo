@@ -28,6 +28,7 @@ export default function Setting() {
   }
 };
 
+
     const click = () => {
         setOpen(true)
     }
