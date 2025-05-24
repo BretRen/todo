@@ -1,26 +1,18 @@
-React + Vite TODO App Template
-This template provides a minimal and efficient setup for building a TODO (task/homework manager) application using React and Vite, featuring fast refresh (HMR) and basic ESLint support.
+# Todos
 
-It's ideal for personal use, school assignments, or lightweight task tracking.
+This is a simple Todos. Made by React+Vite+Mui+Tailwind.
 
-Key Features
-✅ Add, edit, and delete TODO items (e.g., assignments)
+## Install
 
-📅 Set and display due dates
+Prerequisites: npm and node js and git
 
-⭐ Mark tasks as completed
+1. clone the repository: `git clone https://github.com/BretRen/todo/`
+2. install dependencies: `npm i`
+3. run the program: `npm run dev`
 
-🔍 Filter tasks by status or type (e.g., pending, completed)
+## Offline version
+The offline version will be released in each stable version or beta version
 
-💾 Support for local storage or extendable backend APIs
+Condition: Any local server
 
-📱 Responsive design, works on mobile and desktop
-
-Tech Stack
-Vite – Lightning-fast build tool
-
-React – Modern UI framework
-
-ESLint – Linting and code quality
-
-MUI or Tailwind CSS – Optional UI styling
+Just run the index.html of the folder(Please use any local server to run, for example, vscode's live server)
