@@ -21,16 +21,17 @@ export default function TodoItem({
           value={todo.name}
           onChange={(e) => onUpdate(e, todo.id)}
         />
+                {/* info */}
+        <Info
+          info={todo.info}
+          onUpdate={(e) => onUpdateInfo(e.target.value, todo.id)}
+        />
         {todo.date && (
           <span className="text-sm text-gray-500">
             Due: {dayjs(todo.date).format("YYYY-MM-DD HH:mm")}
           </span>
         )}
-        {/* info */}
-        <Info
-          info={todo.info}
-          onUpdate={(e) => onUpdateInfo(e.target.value, todo.id)}
-        />
+
       </div>
       <div className="flex items-center gap-2 ml-2">
         <input
