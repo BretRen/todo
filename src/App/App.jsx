@@ -74,7 +74,7 @@ export default function App() {
   );
 
   return (
-    <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <div className="m-24 max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
         Todo List
       </h1>
