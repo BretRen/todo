@@ -1,6 +1,12 @@
 import TodoItem from "./TodoItem";
 
-export default function TodoList({ todos, onToggle, onDelete, onUpdate }) {
+export default function TodoList({
+  todos,
+  onToggle,
+  onDelete,
+  onUpdate,
+  onUpdateInfo,
+}) {
   return (
     <ul className="space-y-2 max-h-96 overflow-y-auto">
       {todos.map((todo) => (
@@ -12,10 +18,9 @@ export default function TodoList({ todos, onToggle, onDelete, onUpdate }) {
           onUpdate={onUpdate}
           date={todo.date}
           info={todo.info}
+          onUpdateInfo={onUpdateInfo}
         />
-        
       ))}
-      
     </ul>
   );
 }

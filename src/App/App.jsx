@@ -3,7 +3,7 @@ import FilterButtons from "./FilterButtons";
 import AddTodoInput from "./AddTodoInput";
 import TodoList from "./TodoList";
 import DeletedList from "./DeletedList";
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 
 import "../index.css";
 
@@ -25,38 +25,59 @@ export default function App() {
   }, [todos, didInit]);
 
   const toggleDone = (id) =>
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, done: !todo.done } : todo));
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo
+      )
+    );
 
   const addTodo = (name, date, info) =>
-    setTodos([...todos, { name, id: Date.now() + Math.random() * 1000, done: false, info: info,date:date}]);
+    setTodos([
+      ...todos,
+      {
+        name,
+        id: Date.now() + Math.random() * 1000,
+        done: false,
+        info: info,
+        date: date,
+      },
+    ]);
 
   const delTodo = (id) => {
-    const deleted = todos.find(todo => todo.id === id);
+    const deleted = todos.find((todo) => todo.id === id);
     if (deleted) {
       setDelTodos([...delTodos, deleted]);
-      setTodos(todos.filter(todo => todo.id !== id));
+      setTodos(todos.filter((todo) => todo.id !== id));
     }
   };
 
   const backDelTodo = (target) => {
-    setDelTodos(delTodos.filter(todo => todo.id !== target.id));
+    setDelTodos(delTodos.filter((todo) => todo.id !== target.id));
     setTodos([...todos, target]);
   };
 
   const updateTodo = (e, id) => {
     const newName = e.target.value;
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, name: newName } : todo));
+    setTodos(
+      todos.map((todo) => (todo.id === id ? { ...todo, name: newName } : todo))
+    );
   };
 
-  const filteredTodos = todos.filter(todo =>
-    filterType === "all" ? true :
-      filterType === "done" ? todo.done :
-        !todo.done
+  const updateTodoInfo = (info, id) => {
+    setTodos(
+      todos.map((todo) => (todo.id === id ? { ...todo, info: info } : todo))
+    );
+  };
+
+  const filteredTodos = todos.filter((todo) =>
+    filterType === "all" ? true : filterType === "done" ? todo.done : !todo.done
   );
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Todo List</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+        Todo List
+      </h1>
 
       {showDelTodos ? (
         <Tooltip title="You need to click Close Deleted Todos.">
@@ -92,6 +113,7 @@ export default function App() {
             onToggle={toggleDone}
             onDelete={delTodo}
             onUpdate={updateTodo}
+            onUpdateInfo={updateTodoInfo}
           />
         </>
       )}

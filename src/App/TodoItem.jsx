@@ -1,7 +1,13 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import dayjs from 'dayjs';
-
-export default function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
+import DeleteIcon from "@mui/icons-material/Delete";
+import dayjs from "dayjs";
+import Info from "./info";
+export default function TodoItem({
+  todo,
+  onToggle,
+  onDelete,
+  onUpdate,
+  onUpdateInfo,
+}) {
   return (
     <li
       className={`flex items-center justify-between p-3 rounded ${
@@ -20,7 +26,10 @@ export default function TodoItem({ todo, onToggle, onDelete, onUpdate }) {
             Due: {dayjs(todo.date).format("YYYY-MM-DD HH:mm")}
           </span>
         )}
-        <p>{todo.info}</p>
+        <Info
+          info={todo.info}
+          onUpdate={(e) => onUpdateInfo(e.target.value, todo.id)}
+        />
       </div>
       <div className="flex items-center gap-2 ml-2">
         <input
