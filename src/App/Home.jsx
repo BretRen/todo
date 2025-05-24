@@ -4,6 +4,7 @@ import AddTodoInput from "./AddTodoInput";
 import TodoList from "./TodoList";
 import DeletedList from "./DeletedList";
 import Tooltip from "@mui/material/Tooltip";
+import Setting from "../layout/setting";
 
 import "../index.css";
 
@@ -74,13 +75,25 @@ export default function Home() {
   );
 
   return (
-    <div className="m-24 max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-        Todo List
-      </h1>
+    <>
+      <Setting />
+      <div className="m-24 max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+          Todo List
+        </h1>
 
-      {showDelTodos ? (
-        <Tooltip title="You need to click Close Deleted Todos.">
+        {showDelTodos ? (
+          <Tooltip title="You need to click Close Deleted Todos.">
+            <div className="mb-5">
+              <FilterButtons
+                filterType={filterType}
+                setFilterType={setFilterType}
+                showDelTodos={showDelTodos}
+                setShowDelTodos={setShowDelTodos}
+              />
+            </div>
+          </Tooltip>
+        ) : (
           <div className="mb-5">
             <FilterButtons
               filterType={filterType}
@@ -89,34 +102,25 @@ export default function Home() {
               setShowDelTodos={setShowDelTodos}
             />
           </div>
-        </Tooltip>
-      ) : (
-        <div className="mb-5">
-          <FilterButtons
-            filterType={filterType}
-            setFilterType={setFilterType}
-            showDelTodos={showDelTodos}
-            setShowDelTodos={setShowDelTodos}
-          />
-        </div>
-      )}
+        )}
 
-      {showDelTodos ? (
-        <DeletedList delTodos={delTodos} onRestore={backDelTodo} />
-      ) : (
-        <>
-          <div className="mb-6">
-            <AddTodoInput onAdd={addTodo} />
-          </div>
-          <TodoList
-            todos={filteredTodos}
-            onToggle={toggleDone}
-            onDelete={delTodo}
-            onUpdate={updateTodo}
-            onUpdateInfo={updateTodoInfo}
-          />
-        </>
-      )}
-    </div>
+        {showDelTodos ? (
+          <DeletedList delTodos={delTodos} onRestore={backDelTodo} />
+        ) : (
+          <>
+            <div className="mb-6">
+              <AddTodoInput onAdd={addTodo} />
+            </div>
+            <TodoList
+              todos={filteredTodos}
+              onToggle={toggleDone}
+              onDelete={delTodo}
+              onUpdate={updateTodo}
+              onUpdateInfo={updateTodoInfo}
+            />
+          </>
+        )}
+      </div>
+    </>
   );
 }

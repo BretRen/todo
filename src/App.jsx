@@ -6,7 +6,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/about" element={<Changelog />} />
+      <Route path="/changelog" element={<Changelog />} />
     </Routes>
   );
 }

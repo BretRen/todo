@@ -3,14 +3,16 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import dayjs from "dayjs";
 
 export default function AddTodoInput({ onAdd }) {
-  const [dateTime, setDateTime] = useState(dayjs()); // 选中的时间
-  const [inputV, setInputV] = useState(""); // 选中的时间
+  const [dateTime, setDateTime] = useState(dayjs());
+  const [inputV, setInputV] = useState("");
   const [textarea, setTextarea] = useState("");
 
   const finish = () => {
+    if (!inputV.trim()) return;
     onAdd(inputV, dateTime, textarea);
     setInputV("");
     setTextarea("");
@@ -18,8 +20,7 @@ export default function AddTodoInput({ onAdd }) {
 
   return (
     <div className="space-y-3">
-      {" "}
-      {/* 改为垂直布局 */}
+      {/* 第一行：输入框 + 按钮 */}
       <div className="flex items-center gap-3">
         <input
           type="text"
@@ -27,17 +28,21 @@ export default function AddTodoInput({ onAdd }) {
           value={inputV}
           onChange={(e) => setInputV(e.target.value)}
           className="flex-grow px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") finish();
+          }}
         />
+      </div>
+
+      {/* 第二行：DateTimePicker 独占一行 */}
+      <div className="flex items-center gap-3">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
             label="Select due date/time"
             value={dateTime}
             onChange={(newValue) => setDateTime(newValue)}
             renderInput={(params) => (
-              <input
-                {...params}
-                className="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
+              <TextField {...params} fullWidth size="small" />
             )}
           />
         </LocalizationProvider>
@@ -45,7 +50,8 @@ export default function AddTodoInput({ onAdd }) {
           Finish
         </Button>
       </div>
-      {/* 让 textarea 独占一行 */}
+
+      {/* 第三行：textarea 独占一行 */}
       <div>
         <textarea
           className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-y"
