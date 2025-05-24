@@ -7,7 +7,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 import "../index.css";
 
-export default function App() {
+export default function Home() {
   const [todos, setTodos] = useState([]);
   const [filterType, setFilterType] = useState("all");
   const [delTodos, setDelTodos] = useState([]);
