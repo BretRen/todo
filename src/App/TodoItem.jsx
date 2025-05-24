@@ -26,6 +26,7 @@ export default function TodoItem({
             Due: {dayjs(todo.date).format("YYYY-MM-DD HH:mm")}
           </span>
         )}
+        {/* info */}
         <Info
           info={todo.info}
           onUpdate={(e) => onUpdateInfo(e.target.value, todo.id)}
