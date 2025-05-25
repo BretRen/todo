@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npx gh-pages -d dist --repo=https://github.com/BretRen/todo.git"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
