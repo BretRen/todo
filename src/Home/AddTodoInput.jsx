@@ -5,8 +5,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import dayjs from "dayjs";
+import Tooltip from "@mui/material/Tooltip";
 
-export default function AddTodoInput({ onAdd }) {
+export default function AddTodoInput({ onAdd, workspace }) {
   const [dateTime, setDateTime] = useState(dayjs());
   const [inputV, setInputV] = useState("");
   const [textarea, setTextarea] = useState("");
@@ -23,6 +24,7 @@ export default function AddTodoInput({ onAdd }) {
       {/* 第一行：输入框 + 按钮 */}
       <div className="flex items-center gap-3">
         <input
+          disabled={workspace === "official"}
           type="text"
           placeholder="Add a new todo and press Enter"
           value={inputV}
@@ -38,6 +40,7 @@ export default function AddTodoInput({ onAdd }) {
       <div className="flex items-center gap-3">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
+            disabled={workspace === "official"}
             label="Select due date/time"
             value={dateTime}
             onChange={(newValue) => setDateTime(newValue)}
@@ -46,14 +49,24 @@ export default function AddTodoInput({ onAdd }) {
             )}
           />
         </LocalizationProvider>
-        <Button variant="contained" color="success" onClick={finish}>
-          Finish
-        </Button>
+        <Tooltip title="You are not allowed to add new todos">
+          <span>
+            <Button
+              disabled={workspace === "official"}
+              variant="contained"
+              color="success"
+              onClick={finish}
+            >
+              Finish
+            </Button>
+          </span>
+        </Tooltip>
       </div>
 
       {/* 第三行：textarea 独占一行 */}
       <div>
         <textarea
+          disabled={workspace === "official"}
           className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-y"
           rows={2}
           placeholder="More Information"

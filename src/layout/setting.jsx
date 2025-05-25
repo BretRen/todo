@@ -3,14 +3,15 @@ import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import SetKeyInput from "../Setting/setKeyInput";
 
 import saveJSON from "../tool/export";
 
-export default function Setting() {
+export default function Setting({ workspace, setWorkspace }) {
   const [open, setOpen] = useState(false);
 
   const exportData = () => {
-    const raw = localStorage.getItem("todos");
+    const raw = localStorage.getItem(workspace + "-todos");
     if (!raw) {
       alert("没有找到 todos 数据");
       return;
@@ -46,6 +47,9 @@ export default function Setting() {
           <Button variant="text">
             <Link to="/changelog">Changelog</Link>
           </Button>
+        </div>
+        <div className="p-4">
+          <SetKeyInput setWorkspace={setWorkspace} />
         </div>
       </Drawer>
     </div>

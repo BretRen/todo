@@ -62,12 +62,16 @@ const changelogItems = [
   },
   {
     title: "v1.3.6",
-    description: [
-      "Fix UI issues"
-    ],
+    description: ["Fix UI issues"],
     date: "2025-5-24",
-    releaseType: "stable"
-  }
+    releaseType: "stable",
+  },
+  {
+    title: "v1.4.0",
+    description: ["New workspace feature", "Fix some bugs"],
+    date: "2025-5-25",
+    releaseType: "dev",
+  },
 ];
 
 const typeColor = {
@@ -135,7 +139,7 @@ export default function Changelog() {
           p: 4,
           width: "90%",
           maxWidth: 600,
-          m: 10
+          m: 10,
         }}
       >
         <Box
