@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
-export default function Info({ info, onUpdate }) {
+export default function Info({ info, onUpdate, disabled }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -30,7 +30,13 @@ export default function Info({ info, onUpdate }) {
       >
         <DialogTitle id="alert-dialog-title">{"More Info"}</DialogTitle>
         <DialogContent>
-          <TextField value={info} multiline rows={4} onChange={onUpdate} />
+          <TextField
+            disabled={disabled}
+            value={info}
+            multiline
+            rows={4}
+            onChange={onUpdate}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>

@@ -72,6 +72,12 @@ const changelogItems = [
     date: "2025-5-25",
     releaseType: "dev",
   },
+  {
+    title: "v1.4.1",
+    description: ["Add official workspace"],
+    date: "2025-5-25",
+    releaseType: "alpha",
+  },
 ];
 
 const typeColor = {

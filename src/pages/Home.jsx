@@ -37,6 +37,54 @@ export default function Home() {
         done: false,
         id: 0,
       },
+      {
+        name: "Workspace",
+        date: "N/A",
+        done: true,
+        id: 1,
+      },
+      {
+        name: "Subtasks",
+        date: "N/A",
+        done: false,
+        id: 2,
+      },
+      {
+        name: "Import",
+        date: "N/A",
+        done: false,
+        id: 3,
+      },
+      {
+        name: "Export",
+        date: "N/A",
+        done: true,
+        id: 4,
+      },
+      {
+        name: "Batch import.",
+        date: "N/A",
+        done: false,
+        id: 5,
+      },
+      {
+        name: "Desktop notification.",
+        date: "N/A",
+        done: false,
+        id: 6,
+      },
+      {
+        name: "Password protection.",
+        date: "N/A",
+        done: false,
+        id: 7,
+      },
+      {
+        name: "Periodic tasks.",
+        date: "N/A",
+        done: false,
+        id: 8,
+      },
     ];
     // 存到 localStorage 对应 workspace 的 key 中
     localStorage.setItem("official-todos", JSON.stringify(officialTodos));
@@ -210,6 +258,7 @@ export default function Home() {
               onDelete={delTodo}
               onUpdate={updateTodo}
               onUpdateInfo={updateTodoInfo}
+              disabled={workspace === "official" ? true : false}
             />
           </>
         )}

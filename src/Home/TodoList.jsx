@@ -6,6 +6,7 @@ export default function TodoList({
   onDelete,
   onUpdate,
   onUpdateInfo,
+  disabled,
 }) {
   return (
     <ul className="space-y-2 max-h-96 overflow-y-auto">
@@ -19,6 +20,7 @@ export default function TodoList({
           date={todo.date}
           info={todo.info}
           onUpdateInfo={onUpdateInfo}
+          disabled={disabled}
         />
       ))}
     </ul>
