@@ -27,6 +27,9 @@ export default function Home() {
   );
   const { cworkspace } = useParams(); // 获取 URL 参数
   const navigate = useNavigate(); // 用于跳转
+  const [config, setConfig] = useState(
+    localStorage.getItem(workspace + "config") || { password: false }
+  );
 
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -103,9 +106,10 @@ export default function Home() {
   useEffect(() => {
     if (cworkspace) {
       localStorage.setItem("workspace", cworkspace);
+      localStorage.setItem(workspace + "config", { password: false });
     }
     navigate("/");
-  }, [cworkspace, navigate]);
+  }, [cworkspace, navigate, workspace]);
 
   useEffect(() => {
     const saved = localStorage.getItem(workspace + "-todos");
